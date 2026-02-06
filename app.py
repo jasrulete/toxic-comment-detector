@@ -15,20 +15,21 @@ with open("models/vectorizer.pkl", "rb") as f:
 st.title("AI-Assisted Toxic Comment Detector")
 st.write("This tool predicts whether a comment is toxic or non-toxic.")
 
-# User input
-user_input = st.text_area("Enter a comment below:")
+# Put input + submit inside a form
+with st.form("toxicity_form", clear_on_submit=False):
+    user_input = st.text_area("Enter a comment below:")
+    submitted = st.form_submit_button("Check Toxicity")  # Ctrl+Enter will submit this form
 
-# Prediction button
-if st.button("Check Toxicity"):
+if submitted:
     if user_input.strip() == "":
         st.warning("Please enter a comment.")
     else:
         # Preprocess input (same style as training)
         cleaned_input = user_input.lower()
-        
+
         # Convert text to numerical features
         input_vector = vectorizer.transform([cleaned_input])
-        
+
         # Make prediction
         prediction = model.predict(input_vector)[0]
         confidence = model.predict_proba(input_vector).max()
