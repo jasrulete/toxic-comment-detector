@@ -30,7 +30,7 @@ with open(_model_dir / "vectorizer.pkl", "rb") as f:
     vectorizer = pickle.load(f)
 
 # App title and description
-st.title("AI-Assisted Toxic Comment Detector")
+st.title("Toxic Comment Detector")
 st.write("This tool predicts whether a comment is toxic or non-toxic.")
 
 # Put input + submit inside a form
